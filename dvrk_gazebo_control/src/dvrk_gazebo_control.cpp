@@ -56,7 +56,7 @@ void dvrk_gazebo_control::PublishECMStates()
   msg[0].data=0.0;
   msg[1].data=0.0;
   msg[2].data=0.0;
-  msg[3].data=0.0;
+  msg[3].data=0.3;
 
   ecmPub[0].publish(msg[0]);
   ecmPub[1].publish(msg[1]);
@@ -71,8 +71,8 @@ void dvrk_gazebo_control::PublishPSM1States()
   msg.resize(5);
   msg[0].data=0.0;
   msg[1].data=0.0;
-  msg[2].data=0.0;
-  msg[3].data=0.0;
+  msg[2].data=0.5;
+  msg[3].data=0.5;
   msg[4].data=0.0;
 
   psm1Pub[0].publish(msg[0]);
