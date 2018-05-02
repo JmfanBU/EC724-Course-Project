@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<robot name="two_link_arm">
+    <!-- ********** KINEMATIC PROPERTIES (JOINTS) ********** -->
+    <joint name="joint0" type="revolute">
+	<parent link="root"/>
+	<child link="link1"/>
+	<origin rpy="0 0 0" xyz="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<limit effort="30" lower="-1.5708" upper="1.5708" velocity="5"/>
+    </joint>
+    <joint name="joint1" type="revolute">
+	<parent link="link1"/>
+	<child link="link2"/>
+	<origin rpy="0 0 0" xyz="0 0 0.4"/>
+	<axis xyz="1 0 0"/>
+	<limit effort="30" lower="-1.5708" upper="1.5708" velocity="5"/>
+    </joint>
+
+    <!-- ********** INERTIAL PROPERTIES (LINKS) ********** -->
+    <link name="root">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia
+              ixx="1.0" ixy="0.0" ixz="0.0"
+              iyy="1.0" iyz="0.0"
+              izz="1.0" />
+        </inertial>
+	<collision>
+	    <origin rpy="0 0 0" xyz="0 0 0"/>
+	    <geometry>
+	        <box size="0 0 0"/>
+	    </geometry>
+	</collision>
+    </link>
+    <link name="link1">
+	<intertial>
+	    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+	    <mass value="1"/>
+	    <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+	</intertial>
+
+	<visual>
+	   <origin xyz="0 0 0.2" rpy="0 0 0"/>
+	   <geometry>
+		<cylinder radius="0.05" length="0.4"/>
+	   </geometry>
+	   <material name="grey">
+		<color rgba="0.5 0.5 0.5 1.0"/>
+	   </material>
+	</visual>
+
+	<collision>
+	   <origin xyz="0 0 0.2" rpy="0 0 0"/>
+	   <geometry>
+		<cylinder radius="0.05" length="0.4"/>
+	   </geometry>
+	</collision>
+    </link>
+    <link name="link2">
+	<intertial>
+	   <origin xyz="0 0 0.2" rpy="0 0 0"/>
+	   <mass value="1"/>
+	   <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+	</intertial>
+
+	<visual>
+	   <origin xyz="0 0 0.2" rpy="0 0 0"/>
+		<geometry>
+		     <cylinder radius="0.05" length="0.4"/>
+		</geometry>
+		<material name="grey">
+		     <color rgba="0.5 0.5 0.5 1.0"/>
+		</material>
+	</visual>
+
+	<collision>
+	   <origin xyz="0 0 0.2" rpy="0 0 0"/>
+	   <geometry>
+		<cylinder radius="0.05" length="0.4"/>
+	   </geometry>
+	</collision>
+    </link>
+
+    <transmission name="tran0">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="joint0">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor0">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran1">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="joint1">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+  <gazebo>
+     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+       <robotNamespace>/two_link_arm</robotNamespace>
+     </plugin>
+  </gazebo>
+</robot>

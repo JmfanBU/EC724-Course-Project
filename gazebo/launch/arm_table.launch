@@ -1,0 +1,21 @@
+<launch>
+
+    <!-- Launch Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find dvrk_gazebo)/worlds/dvrk.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <include file="$(find dvrk_gazebo)/launch/arm_control.launch"/>
+
+    <!-- Generate/Load robot description file -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find dvrk_model)/Two_Link/arm_table.urdf.xacro'" />
+
+    <!-- Spawn urdf into Gazebo -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model arm" />
+
+</launch>

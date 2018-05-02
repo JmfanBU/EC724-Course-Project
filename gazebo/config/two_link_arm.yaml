@@ -1,0 +1,16 @@
+#PID values assign
+
+two_link_arm:
+  # Publish all joint states
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+  # Position Controllers
+  joint0_position_controller:
+    type: effot_controllers/JointPositionController
+    joint: joint0
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint1_position_controller:
+    type: effort_controller/JointPositionController
+    joint: joint1
+    pid: {p: 100.0, i: 0.01, d: 10.0}

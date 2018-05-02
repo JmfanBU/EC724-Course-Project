@@ -1,0 +1,17 @@
+#PID values assign
+
+arm:
+  # Publish all joint states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers
+  joint0_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: foot_leg_joint
+    pid: {p: 1000.0, i: 0.0, d: 10.0}
+  joint1_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: leg_arm_joint
+    pid: {p: 1000.0, i: 0.0, d: 10.0}
